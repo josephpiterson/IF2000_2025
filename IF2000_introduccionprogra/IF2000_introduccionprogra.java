@@ -1,6 +1,7 @@
 package IF2000_introduccionprogra;
 
 import domain.Person;
+import logic.Ejercicio_semana2_PracticaEnClase;
 
 public class IF2000_introduccionprogra {
    public static void main(String[] args) {

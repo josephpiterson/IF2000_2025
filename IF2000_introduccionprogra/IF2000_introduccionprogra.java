@@ -33,5 +33,9 @@ public class IF2000_introduccionprogra {
      Person person = new Person("John", "Doe", "123456789", "555-1234", 30);
     System.out.println(person.toString());
 
+      Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
+      ejercicio.Quizz_piramide_astericos(5);
+      ejercicio.EjercioACuadrado_en_blanco(5);
+
    } 
 }

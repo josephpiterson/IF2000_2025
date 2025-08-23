@@ -34,8 +34,13 @@ public class IF2000_introduccionprogra {
     System.out.println(person.toString());
 
       Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
-      ejercicio.Quizz_piramide_astericos(5);
+      /*ejercicio.Quizz_piramide_astericos(5);
       ejercicio.EjercioACuadrado_en_blanco(5);
+      ejercicio.ejercicioB(10);
+      ejercicio.ejercicioc(10);
+      ejercicio.conteo_Ascendente(10);
+      ejercicio.conteo_descendente(10);*/
+      ejercicio.mostrarTableroDamas();
 
    } 
 }

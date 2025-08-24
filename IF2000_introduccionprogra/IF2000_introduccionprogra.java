@@ -52,7 +52,9 @@ public class IF2000_introduccionprogra {
       //lab1.Ejercicio_7();
       //lab1.Ejercicio_8();
       //lab1.Ejercicio_9();
-      lab1.Ejercicio_10();
+      //lab1.Ejercicio_10();
+      //lab1.Ejercicio_11();
+      lab1.Ejercicio_12();
 
    } 
 }

@@ -216,6 +216,37 @@ public class lab1_ejercicios {
                 }
 
             }
+            public  void Ejercicio_11(){
+                /*Diseñe un DF que genere la lista de los números primos, que existen entre el número 2 y un
+                    número natural N leído del teclado. */
+
+                    Scanner sc = new Scanner(System.in);
+                    int N,contador;
+                    System.out.println("Ingrese un numero natural N:");
+                    N=sc.nextInt();
+                    System.out.println("Los numeros primos entre 2 y "+N+"Son:");
+                    for(int i=2; i<=N;i++){
+                        contador=0;
+                        for(int j=1;j<=i;j++){
+                            if(i%j==0){
+                                contador++;
+                            }
+                            System.out.println("El numero de divisores es:"+contador);
+                        }
+                    }
+            }
+            public void Ejercicio_12(){
+                /*Escribir un algoritmo que calcule el área de un triángulo en función de base y altura. */
+
+                Scanner sc=new Scanner(System.in);
+                double base,altura,area;
+                System.err.println("Ingrese la base del triangulo:");
+                base=sc.nextDouble();
+                System.err.println("Ingrese la altura del triangulo:");
+                altura=sc.nextDouble();
+                area=(base*altura)/2;
+                System.err.println("El area del triangulo es:"+area);
+            }
         }
     
     

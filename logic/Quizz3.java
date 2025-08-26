@@ -9,7 +9,7 @@ public class Quizz3 {
             if (i == 1 || i == n || j == 1 || j == n) {
                 System.out.print("* ");
             } else if (i == (n + 1) / 2 && j == (n + 1) / 2) {
-                // Coloca un asterisco en el centro si n es impar
+             
                 System.out.print("* ");
             } else {
                 System.out.print("  ");

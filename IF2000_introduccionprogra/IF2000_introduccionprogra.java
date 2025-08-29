@@ -1,6 +1,5 @@
 package IF2000_introduccionprogra;
 
-import domain.Person;
 import logic.*;
 
 public class IF2000_introduccionprogra {
@@ -27,11 +26,11 @@ public class IF2000_introduccionprogra {
     true/false
     boolean
     */
-    System.out.println("Hola mundo");
+    /*System.out.println("Hola mundo");
     System.out.println("Nombre:"+name);
     System.out.println("Edad:"+age);
      Person person = new Person("John", "Doe", "123456789", "555-1234", 30);
-    System.out.println(person.toString());
+    System.out.println(person.toString());*/
 
       Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
       /*ejercicio.Quizz_piramide_astericos(5);
@@ -61,8 +60,18 @@ public class IF2000_introduccionprogra {
       //lab2.ejercicio1(0);
       //lab2.ejericio2();
       //lab2.ejercicio3();
-      lab2.ejercicio4();
-      lab2.ejercicio5();
+      //lab2.ejercicio4();
+      //lab2.ejercicio5();
+      //lab2.ejercicio6();
+      //lab2.ejercicio7();
+      //lab2.ejercicio8();
+      //lab2.ejercicio9();
+      //lab2.ejercicio10();
+      //lab2.ejercicio11();
+      //lab2.ejercicio12();
+      //lab2.ejercicio13();
+      //lab2.ejercicio14();
+      lab2.ejercicio15();
 
    } 
 }

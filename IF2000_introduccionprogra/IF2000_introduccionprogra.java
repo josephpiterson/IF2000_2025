@@ -1,9 +1,7 @@
 package IF2000_introduccionprogra;
 
 import domain.Person;
-import logic.Ejercicio_semana2_PracticaEnClase;
-import logic.Quizz3;
-import logic.lab1_ejercicios;
+import logic.*;
 
 public class IF2000_introduccionprogra {
    public static void main(String[] args) {
@@ -59,6 +57,12 @@ public class IF2000_introduccionprogra {
       Quizz3 quizz3 = new Quizz3();
       //quizz3.EjercioACuadrado_en_blanco(5);
 
+      Lab2_ejercicios lab2 = new Lab2_ejercicios();
+      //lab2.ejercicio1(0);
+      //lab2.ejericio2();
+      //lab2.ejercicio3();
+      lab2.ejercicio4();
+      lab2.ejercicio5();
 
    } 
 }

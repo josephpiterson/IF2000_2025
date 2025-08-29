@@ -57,7 +57,7 @@ public class IF2000_introduccionprogra {
       //lab1.Ejercicio_11();
       //lab1.Ejercicio_12();
       Quizz3 quizz3 = new Quizz3();
-      quizz3.EjercioACuadrado_en_blanco(5);
+      //quizz3.EjercioACuadrado_en_blanco(5);
 
 
    } 

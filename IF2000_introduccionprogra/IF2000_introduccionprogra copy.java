@@ -54,8 +54,7 @@ public class IF2000_introduccionprogra {
       //lab1.Ejercicio_12();
       Quizz_semana2 quizz2 = new Quizz_semana2();
       //quizz3.EjercioACuadrado_en_blanco(5);
-
-      Lab_2_Ejercicios lab2 = new Lab_2_Ejercicios();
+    Lab2_ejercicio lab2=new Lab2_ejercicio();
       //lab2.ejercicio1(0);
       //lab2.ejericio2();
       //lab2.ejercicio3();
@@ -77,3 +76,6 @@ public class IF2000_introduccionprogra {
 
    } 
 }
+
+
+

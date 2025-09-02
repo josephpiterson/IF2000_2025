@@ -1,9 +1,6 @@
 package IF2000_introduccionprogra;
 
-import logic.Ejercicio_semana2_PracticaEnClase;
-import logic.lab1_ejercicios;
-import logic.Lab2_ejercicios;
-import logic.Quizz3;
+import logic.*;
 
 public class IF2000_introduccionprogra
 {

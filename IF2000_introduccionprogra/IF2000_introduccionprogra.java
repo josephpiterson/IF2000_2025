@@ -1,6 +1,4 @@
 package IF2000_introduccionprogra;
-import logic.Ejercio_Semana2_PracticaEnClase;
-
 import logic.*;
 
 public class IF2000_introduccionprogra {
@@ -33,7 +31,7 @@ public class IF2000_introduccionprogra {
      Person person = new Person("John", "Doe", "123456789", "555-1234", 30);
     System.out.println(person.toString());*/
 
-      Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
+     Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
       /*ejercicio.Quizz_piramide_astericos(5);
       ejercicio.EjercioACuadrado_en_blanco(5);
       ejercicio.ejercicioB(10);
@@ -54,10 +52,10 @@ public class IF2000_introduccionprogra {
       //lab1.Ejercicio_10();
       //lab1.Ejercicio_11();
       //lab1.Ejercicio_12();
-      Quizz3 quizz3 = new Quizz3();
+      Quizz_semana2 quizz2 = new Quizz_semana2();
       //quizz3.EjercioACuadrado_en_blanco(5);
 
-      Lab2_ejercicios lab2 = new Lab2_ejercicios();
+      Lab_2_Ejercicios lab2 = new Lab_2_Ejercicios();
       //lab2.ejercicio1(0);
       //lab2.ejericio2();
       //lab2.ejercicio3();
@@ -74,9 +72,6 @@ public class IF2000_introduccionprogra {
       //lab2.ejercicio14();
       lab2.ejercicio15();
 
-      Ejercio_Semana2_PracticaEnClase ejercicio=new Ejercio_Semana2_PracticaEnClase();
-      ejercicio.Quizz_piramide(5);
-      ejercicio.ejercicioA(5);
    
 
 

@@ -1,6 +1,7 @@
 package domain;
 
-public class Saving_account extends Account {
+public class SavingAccount extends Account{
+    
     //Atributes
     private String initialDate;
     private int months;
@@ -8,13 +9,13 @@ public class Saving_account extends Account {
 
     //Constructor
 
-    public Saving_account(String initialDate, int months, float interest) {
+    public SavingAccount(String initialDate, int months, float interest) {
         this.initialDate = initialDate;
         this.months = months;
         this.interest = interest;
     }
 
-    public Saving_account(String initialDate, int months, float interest, String accountNumber, double balance, Person client) {
+    public SavingAccount(String initialDate, int months, float interest, String accountNumber, double balance, Person client) {
         super(accountNumber, balance, client);
         this.initialDate = initialDate;
         this.months = months;
@@ -59,7 +60,7 @@ public class Saving_account extends Account {
     }
 
     @Override
-    public double interestCalculation() {
+    public double interestcalculation() {
         
         double total;
         total = this.getMonths()
@@ -89,5 +90,4 @@ public class Saving_account extends Account {
     
     
     
-
-}
+}//endClass

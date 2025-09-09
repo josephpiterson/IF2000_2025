@@ -36,8 +36,8 @@ public abstract class Account {
     }
 
     //metodos
-    public abstract void deposit();
-    public abstract void withdraw();
+    public abstract void deposit( double amount);
+    public abstract void withdraw(  double amount);
     public abstract double interestcalculation();
     @Override
     public String toString() {

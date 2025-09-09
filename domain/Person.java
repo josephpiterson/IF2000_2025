@@ -51,7 +51,14 @@ public class Person {
     @Override
     public String toString() {
         return "Person [name=" 
-        + getName() + ", Lastname=" + getLastname() + ", id=" + getId() + ", phone=" + getPhone() + ", age=" + getAge()
+        + getName() 
+        + ", Lastname=" 
+        + getLastname() 
+        + ", id=" + getId() 
+        + ", phone=" 
+        + getPhone() 
+        + ", age=" 
+        + getAge()
         ;
     }
 

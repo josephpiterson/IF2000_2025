@@ -2,6 +2,7 @@ package IF2000_introduccionprogra;
 
 import logic.*;
 
+
 public class IF2000_introduccionprogra
 {
     public static void main(String[] args)

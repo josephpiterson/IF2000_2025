@@ -1,7 +1,7 @@
 package IF2000_introduccionprogra;
 
 import logic.*;
-
+import domain.*;
 
 public class IF2000_introduccionprogra
 {

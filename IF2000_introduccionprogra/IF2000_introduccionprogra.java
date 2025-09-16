@@ -1,7 +1,6 @@
 package IF2000_introduccionprogra;
 
 import logic.*;
-import domain.*;
 
 public class IF2000_introduccionprogra
 {
@@ -44,7 +43,7 @@ public class IF2000_introduccionprogra
         ejercicio.conteo_descendente(10);
         ejercicio.mostrarTableroDamas();*/
         lab1_ejercicios lab1 = new lab1_ejercicios();
-        lab1.Ejercio_1();
+        //lab1.Ejercio_1();
         //lab1.Ejecicio_2();
         //lab1.Ejercicio_3();
         //lab1.Ejercicio_4();
@@ -73,6 +72,22 @@ public class IF2000_introduccionprogra
         //lab2.ejercicio12();
         //lab2.ejercicio13();
         //lab2.ejercicio14();
-        lab2.ejercicio15();
+        //lab2.ejercicio15();
+        Lab3_ejercicios Lab3 = new Lab3_ejercicios();
+        //Lab3.ejercicio_1();
+        //Lab3.ejercicio_2();
+        //Lab3.ejercicio_3();
+        //Lab3.ejercicio_4();
+        //Lab3.ejercicio_5();
+        //Lab3.ejercicio_6();
+        //Lab3.ejercicio_7();
+        //Lab3.ejercicio_8();
+        //Lab3.ejercicio_9();
+        //Lab3.ejercicio_10();
+        //Lab3.ejercicio_11();
+        //Lab3.ejercicio_12();
+        //Lab3.ejercicio_13();
+        Lab3.ejercicio_14();
+
     }
 }

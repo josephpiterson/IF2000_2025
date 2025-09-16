@@ -3,7 +3,7 @@ package domain;
 public class CheckingAccount extends Account {
     private double interestRate;
 
-    public CheckingAccount(String number, double balance, Client client, Bank bank, double interestRate) {
+    public CheckingAccount(String number, double balance, Person client, Bank bank, double interestRate) {
         super(number, balance, client, bank);
         this.interestRate = interestRate;
     }

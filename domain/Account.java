@@ -5,15 +5,18 @@ public abstract class Account {
     private String accountNumber;
     private double balance;
     private Person client;
+    protected  Bank bank;
 
     // Constructor
     public Account() {
        
     }
-    public Account(String accountNumber, double balance, Person client) {
+    public Account(String accountNumber, double balance, Person client, Bank bank) {
+         this.accountNumber = accountNumber;
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.client = client;
+        this.bank=bank;
     }
     // Getters y Setters
     public String getAccountNumber() {
@@ -34,10 +37,25 @@ public abstract class Account {
     public void setClient(Person client) {
         this.client = client;
     }
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+    public Bank getBank() {
+        return bank;
+    }
+    
 
     //metodos
-    public abstract void deposit( double amount);
-    public abstract void withdraw(  double amount);
+    public void deposit( double amount){
+        if(amount>0){
+            balance+=amount;
+        }
+    }
+    public  void withdraw(  double amount){
+        if(amount>0 && amount<=balance){
+            balance-=amount;
+        }
+    }
     public abstract double interestcalculation();
     @Override
     public String toString() {

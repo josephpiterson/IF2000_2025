@@ -15,8 +15,8 @@ public class SavingAccount extends Account{
         this.interest = interest;
     }
 
-    public SavingAccount(String initialDate, int months, float interest, String accountNumber, double balance, Person client) {
-        super(accountNumber, balance, client);
+    public SavingAccount(String initialDate, int months, float interest, String accountNumber, double balance, Person client,Bank bank) {
+        super(accountNumber, balance, client, bank);
         this.initialDate = initialDate;
         this.months = months;
         this.interest = interest;

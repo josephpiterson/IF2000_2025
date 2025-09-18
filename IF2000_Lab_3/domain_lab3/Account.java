@@ -1,4 +1,4 @@
-package domainlab3;
+package IF2000_Lab_3.domain_lab3;
 
 import java.util.Objects;
 
@@ -7,17 +7,15 @@ public abstract class Account {
     private String accountNumber;
     private double balance;
     private Person client;
-    private Bank bank;
 
     // Constructor
     public Account() {
        
     }
-    public Account(String accountNumber, double balance, Person client, Bank bank) {
+    public Account(String accountNumber, double balance, Person client) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.client = client;
-        this.bank = bank;
     }
     // Getters y Setters
     public String getAccountNumber() {
@@ -38,25 +36,11 @@ public abstract class Account {
     public void setClient(Person client) {
         this.client = client;
     }
-    public Bank getBank() {
-        return bank;
-    }
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
+   
 
 
-   public void deposit(double amount) {
-        if (amount <= 0) throw new IllegalArgumentException("Deposit amount must be positive");
-        balance += amount;
-    }
-
-    public boolean withdraw(double amount) {
-        if (amount <= 0) throw new IllegalArgumentException("Withdraw amount must be positive");
-        if (amount > balance) return false;
-        balance -= amount;
-        return true;
-    }
+   public  abstract void deposit(double amount);
+    public  abstract boolean withdraw(double amount);
   public abstract void calculateInterest();
   @Override
   public String toString() {

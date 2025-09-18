@@ -1,4 +1,6 @@
-package IF2000_Lab_3.domain_lab3;
+package domain_lab3;
+
+import domain_lab3.Person;
 
 public abstract class Account {
     // Atributos

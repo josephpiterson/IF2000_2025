@@ -1,4 +1,4 @@
-package IF2000_Lab_3.domain_lab3;
+package IF2000_Lab_3.domainlab3;
 
 public class SavingAccount extends Account{
     

@@ -1,5 +1,5 @@
 package IF2000_Lab_3;
-import IF2000_Lab_3.domain_lab3.*;
+import IF2000_Lab_3.domainlab3.*;
 
 
 public class IF2000_introduccionprogra

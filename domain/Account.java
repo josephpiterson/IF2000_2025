@@ -6,6 +6,7 @@ public abstract class Account {
     private String accountNumber;
     private double balance;
     private Person client;
+    
 
     // Constructor
     public Account() {

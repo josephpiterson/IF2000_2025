@@ -1,4 +1,4 @@
-package IF2000_Lab_3.domainlab3;
+package domainlab3;
 
 import java.util.Objects;
 

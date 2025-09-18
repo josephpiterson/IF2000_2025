@@ -1,7 +1,5 @@
 package IF2000_Lab_3.domain_lab3;
 
-import java.util.Objects;
-
 public abstract class Account {
     // Atributos
     private String accountNumber;
@@ -39,29 +37,24 @@ public abstract class Account {
    
 
 
-   public  abstract void deposit(double amount);
-    public  abstract boolean withdraw(double amount);
+   public  void deposit(double amount){
+    if (amount <= 0) throw new IllegalArgumentException("Deposit amount must be positive.");
+    balance += amount;
+    if (bank != null) {
+      bank.getBitacora().addEvent("DEPOSIT", this, amount);
+    }
+   }
+    public  boolean withdraw(double amount){
+        if (amount <= 0) throw new IllegalArgumentException("Withdraw amount must be positive.");
+    if (amount > balance) return false;
+    balance -= amount;
+    if (bank != null) {
+      bank.getBitacora().addEvent("WITHDRAW", this, amount);
+    }
+    return true;
+    }
   public abstract void calculateInterest();
-  @Override
-  public String toString() {
-    return this.getClass().getSimpleName() + "{" +
-      "accountNumber='" + accountNumber + '\'' +
-      ", balance=" + balance +
-      ", Client=" + client.getName() +
-      ", bank=" + (bank == null ? "None" : bank.getName()) +
-      '}';
+  
   }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  
     
-    Account account = (Account) o;
-    return Objects.equals(accountNumber, account.accountNumber);
-  }
-  @Override
-  public int hashCode() {
-    return Objects.hash(accountNumber);
-  }
-    
-}

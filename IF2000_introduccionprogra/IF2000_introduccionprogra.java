@@ -1,13 +1,14 @@
 package IF2000_introduccionprogra;
 
-import logic.*;
+import javax.swing.SwingUtilities;
+import logic.TableroApp;
 
 public class IF2000_introduccionprogra
 {
     public static void main(String[] args)
     {
-        String name = "Joseph";
-        int age = 40;
+        //String name = "Joseph";
+        //int age = 40;
         /*tipos de datos numericos
          * int,long,short,float,double,numeric,money,decimal
          * 
@@ -34,7 +35,7 @@ public class IF2000_introduccionprogra
         Person person = new Person("John", "Doe", "123456789", "555-1234", 30);
         System.out.println(person.toString());*/
 
-        Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
+        //Ejercicio_semana2_PracticaEnClase ejercicio = new Ejercicio_semana2_PracticaEnClase();
         /*ejercicio.Quizz_piramide_astericos(5);
         ejercicio.EjercioACuadrado_en_blanco(5);
         ejercicio.ejercicioB(10);
@@ -42,7 +43,7 @@ public class IF2000_introduccionprogra
         ejercicio.conteo_Ascendente(10);
         ejercicio.conteo_descendente(10);
         ejercicio.mostrarTableroDamas();*/
-        lab1_ejercicios lab1 = new lab1_ejercicios();
+        //lab1_ejercicios lab1 = new lab1_ejercicios();
         //lab1.Ejercio_1();
         //lab1.Ejecicio_2();
         //lab1.Ejercicio_3();
@@ -55,9 +56,9 @@ public class IF2000_introduccionprogra
         //lab1.Ejercicio_10();
         //lab1.Ejercicio_11();
         //lab1.Ejercicio_12();
-        Quizz3 quizz3 = new Quizz3();
+        //Quizz3 quizz3 = new Quizz3();
         //quizz3.EjercioACuadrado_en_blanco(5);
-        Lab2_ejercicios lab2 = new Lab2_ejercicios();
+        //Lab2_ejercicios lab2 = new Lab2_ejercicios();
         //lab2.ejercicio1(0);
         //lab2.ejericio2();
         //lab2.ejercicio3();
@@ -73,21 +74,23 @@ public class IF2000_introduccionprogra
         //lab2.ejercicio13();
         //lab2.ejercicio14();
         //lab2.ejercicio15();
-        Lab3_ejercicios Lab3 = new Lab3_ejercicios();
-        //Lab3.ejercicio_1();
-        //Lab3.ejercicio_2();
-        //Lab3.ejercicio_3();
-        //Lab3.ejercicio_4();
-        //Lab3.ejercicio_5();
-        //Lab3.ejercicio_6();
-        //Lab3.ejercicio_7();
-        //Lab3.ejercicio_8();
-        //Lab3.ejercicio_9();
-        //Lab3.ejercicio_10();
-        //Lab3.ejercicio_11();
-        //Lab3.ejercicio_12();
-        //Lab3.ejercicio_13();
-        Lab3.ejercicio_14();
+    //Lab3_ejercicios Lab3 = new Lab3_ejercicios();
+    //Lab3.ejercicio_1();
+    //Lab3.ejercicio_2();
+    //Lab3.ejercicio_3();
+    //Lab3.ejercicio_4();
+    //Lab3.ejercicio_5();
+    //Lab3.ejercicio_6();
+    //Lab3.ejercicio_7();
+    //Lab3.ejercicio_8();
+    //Lab3.ejercicio_9();
+    //Lab3.ejercicio_10();
+    //Lab3.ejercicio_11();
+    //Lab3.ejercicio_12();
+    //Lab3.ejercicio_13();
+    //Lab3.ejercicio_14();
 
+    // Iniciar la interfaz del tablero (TableroGUI) que ahora está en TableroApp
+    SwingUtilities.invokeLater(() -> new TableroApp.TableroGUI());
     }
 }

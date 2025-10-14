@@ -7,334 +7,260 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- * Aplicación que combina modelo y GUI en un solo archivo para facilidad de ejecución.
+ * TableroApp: clase única que contiene el modelo y la GUI del tablero movible.
  */
-public class TableroApp {
-    // Constructor que inicia la GUI al instanciar la clase.
+public class TableroApp extends JFrame {
+    private static final long serialVersionUID = 1L;
+
+    // Modelo
+    private final String[][] tablero;
+    private final int filas = 8;
+    private final int columnas = 8;
+    private final String piezaVacia = ".";
+
+    // Estado de selección
+    private String piezaSeleccionada = null;
+    private int filaSeleccionada = -1;
+    private int columnaSeleccionada = -1;
+    private boolean piezaEnmano = false;
+
+    // GUI
+    private final JButton[][] botones;
+    private final JLabel statusLabel = new JLabel("Listo");
+    private final Color lightColor = new Color(250, 248, 239);
+    private final Color darkColor = new Color(181, 136, 99);
+    private final Border defaultBorder = new LineBorder(Color.DARK_GRAY, 1);
+    private final Border selectionBorder = new LineBorder(Color.RED, 3);
+
     public TableroApp() {
-        // Lanzar la interfaz gráfica en el hilo de eventos Swing
-        SwingUtilities.invokeLater(() -> {
-            new TableroGUI();
-        });
+        super("Tablero Movible - Integrado");
+        botones = new JButton[filas][columnas];
+        tablero = new String[filas][columnas];
+        inicializarModelo();
+        inicializarGUI();
     }
 
-    /**
-     * Modelo del tablero movible
-     */
-    public static class Tablero_movible_de_ajedrez {
-        private String[][] tablero;
-        private int filas;
-        private int columnas;
-        private String piezaVacia = ".";
+    private void inicializarModelo() {
+        for (int r = 0; r < filas; r++)
+            for (int c = 0; c < columnas; c++)
+                tablero[r][c] = piezaVacia;
+        colocarPiezasIniciales();
+    }
 
-        private String piezaSeleccionada = null;
-        private int filaSeleccionada = -1;
-        private int columnaSeleccionada = -1;
-        private boolean piezaEnmano = false;
+    private void colocarPiezasIniciales() {
+        // Ejemplo de piezas (puedes cambiarlo)
+        for (int c = 0; c < columnas; c++) tablero[1][c] = "P";
+        for (int c = 0; c < columnas; c++) tablero[6][c] = "p";
+        tablero[0][0] = "T"; tablero[0][1] = "C"; tablero[0][2] = "A"; tablero[0][3] = "D";
+        tablero[0][4] = "R"; tablero[0][5] = "A"; tablero[0][6] = "C"; tablero[0][7] = "T";
+        tablero[7][0] = "t"; tablero[7][1] = "c"; tablero[7][2] = "a"; tablero[7][3] = "d";
+        tablero[7][4] = "r"; tablero[7][5] = "a"; tablero[7][6] = "c"; tablero[7][7] = "t";
+    }
 
-        public Tablero_movible_de_ajedrez(int filas, int columnas) {
-            this(filas, columnas, ".");
-        }
+    private boolean validarIndices(int fila, int columna) {
+        return fila >= 0 && fila < filas && columna >= 0 && columna < columnas;
+    }
 
-        public Tablero_movible_de_ajedrez(int filas, int columnas, String piezaVacia) {
-            this.filas = Math.max(1, filas);
-            this.columnas = Math.max(1, columnas);
-            if (piezaVacia != null && !piezaVacia.isEmpty()) this.piezaVacia = piezaVacia;
-            tablero = new String[this.filas][this.columnas];
-            reiniciarTablero();
-        }
+    private boolean seleccionarPieza(int fila, int columna) {
+        if (!validarIndices(fila, columna)) return false;
+        if (piezaEnmano) return false;
+        String p = tablero[fila][columna];
+        if (p == null || p.equals(piezaVacia)) return false;
+        piezaSeleccionada = p;
+        filaSeleccionada = fila;
+        columnaSeleccionada = columna;
+        piezaEnmano = true;
+        tablero[fila][columna] = piezaVacia;
+        return true;
+    }
 
-        public Tablero_movible_de_ajedrez(String[][] inicial, int filas, int columnas, String piezaVacia,
-                String piezaSeleccionada, int filaSeleccionada, boolean piezaEnmano) {
-            if (inicial != null) {
-                this.filas = inicial.length;
-                this.columnas = (inicial.length > 0) ? inicial[0].length : columnas;
-                tablero = new String[this.filas][this.columnas];
-                for (int i = 0; i < this.filas; i++) {
-                    for (int j = 0; j < this.columnas; j++) {
-                        tablero[i][j] = inicial[i][j];
-                    }
-                }
-            } else {
-                this.filas = Math.max(1, filas);
-                this.columnas = Math.max(1, columnas);
-                tablero = new String[this.filas][this.columnas];
-                reiniciarTablero();
-            }
-            if (piezaVacia != null && !piezaVacia.isEmpty()) this.piezaVacia = piezaVacia;
-            this.piezaSeleccionada = piezaSeleccionada;
-            this.filaSeleccionada = filaSeleccionada;
-            this.piezaEnmano = piezaEnmano;
-        }
+    private boolean moverPieza(int fila, int columna) {
+        if (!validarIndices(fila, columna)) return false;
+        if (!piezaEnmano) return false;
+        if (!tablero[fila][columna].equals(piezaVacia)) return false;
+        tablero[fila][columna] = piezaSeleccionada;
+        piezaSeleccionada = null;
+        piezaEnmano = false;
+        filaSeleccionada = -1;
+        columnaSeleccionada = -1;
+        return true;
+    }
 
-        public String[][] getTablero() { return tablero; }
-        public int getFilas() { return filas; }
-        public int getColumnas() { return columnas; }
-        public String getPiezaVacia() { return piezaVacia; }
-        public String getPiezaSeleccionada() { return piezaSeleccionada; }
-        public int getFilaSeleccionada() { return filaSeleccionada; }
-        public int getColumnaSeleccionada() { return columnaSeleccionada; }
-        public boolean getPiezaEnmano() { return piezaEnmano; }
-
-        public void reiniciarTablero() {
+    private boolean soltarPieza() {
+        if (!piezaEnmano) return false;
+        if (!validarIndices(filaSeleccionada, columnaSeleccionada)) return false;
+        if (tablero[filaSeleccionada][columnaSeleccionada].equals(piezaVacia)) {
+            tablero[filaSeleccionada][columnaSeleccionada] = piezaSeleccionada;
+        } else {
+            // Buscar primera celda vacía
             for (int i = 0; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
-                    tablero[i][j] = piezaVacia;
-                }
-            }
-            piezaSeleccionada = null;
-            piezaEnmano = false;
-            filaSeleccionada = -1;
-            columnaSeleccionada = -1;
-        }
-
-        public boolean colocarPieza(int fila, int columna, String pieza) {
-            if (!validarIndices(fila, columna)) return false;
-            if (pieza == null) return false;
-            if (!tablero[fila][columna].equals(piezaVacia)) return false;
-            tablero[fila][columna] = pieza;
-            return true;
-        }
-
-        public boolean seleccionarPieza(int fila, int columna) {
-            if (!validarIndices(fila, columna)) return false;
-            if (piezaEnmano) return false;
-            String p = tablero[fila][columna];
-            if (p == null || p.equals(piezaVacia)) return false;
-            piezaSeleccionada = p;
-            filaSeleccionada = fila;
-            columnaSeleccionada = columna;
-            piezaEnmano = true;
-            tablero[fila][columna] = piezaVacia;
-            return true;
-        }
-
-        public boolean moverpieza(int fila, int columna) {
-            return moverPieza(fila, columna);
-        }
-
-        public boolean moverPieza(int fila, int columna) {
-            if (!validarIndices(fila, columna)) return false;
-            if (!piezaEnmano) return false;
-            if (!tablero[fila][columna].equals(piezaVacia)) return false;
-            tablero[fila][columna] = piezaSeleccionada;
-            piezaSeleccionada = null;
-            piezaEnmano = false;
-            filaSeleccionada = -1;
-            columnaSeleccionada = -1;
-            return true;
-        }
-
-        public boolean soltarPieza() {
-            if (!piezaEnmano) return false;
-            if (!validarIndices(filaSeleccionada, columnaSeleccionada)) return false;
-            if (tablero[filaSeleccionada][columnaSeleccionada].equals(piezaVacia)) {
-                tablero[filaSeleccionada][columnaSeleccionada] = piezaSeleccionada;
-            } else {
-                boolean colocada = false;
-                for (int i = 0; i < filas && !colocada; i++) {
-                    for (int j = 0; j < columnas && !colocada; j++) {
-                        if (tablero[i][j].equals(piezaVacia)) {
-                            tablero[i][j] = piezaSeleccionada;
-                            colocada = true;
-                        }
+                    if (tablero[i][j].equals(piezaVacia)) {
+                        tablero[i][j] = piezaSeleccionada;
+                        piezaSeleccionada = null;
+                        piezaEnmano = false;
+                        filaSeleccionada = -1;
+                        columnaSeleccionada = -1;
+                        return true;
                     }
                 }
-                if (!colocada) return false;
             }
-            piezaSeleccionada = null;
-            piezaEnmano = false;
-            filaSeleccionada = -1;
-            columnaSeleccionada = -1;
-            return true;
+            return false;
         }
-
-        private boolean validarIndices(int fila, int columna) {
-            return fila >= 0 && fila < filas && columna >= 0 && columna < columnas;
-        }
+        piezaSeleccionada = null;
+        piezaEnmano = false;
+        filaSeleccionada = -1;
+        columnaSeleccionada = -1;
+        return true;
     }
 
-    /**
-     * Interfaz gráfica del tablero (mejorada)
-     */
-    public static class TableroGUI extends JFrame {
-        private final int FILAS = 8;
-        private final int COLUMNAS = 8;
-        private final JButton[][] botones = new JButton[FILAS][COLUMNAS];
-        private final Tablero_movible_de_ajedrez tablero;
-        private final JLabel statusLabel = new JLabel("Listo");
-        private final Color lightColor = new Color(250, 248, 239);
-        private final Color darkColor = new Color(181, 136, 99);
-        private final Border defaultBorder = new LineBorder(Color.DARK_GRAY, 1);
-        private final Border selectionBorder = new LineBorder(Color.RED, 3);
+    private void inicializarGUI() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(6, 6));
+        add(crearGridConEncabezados(), BorderLayout.CENTER);
+        add(crearPanelControl(), BorderLayout.SOUTH);
+        pack();
+        setResizable(false);
+        setLocationRelativeTo(null);
+        refrescar();
+        setVisible(true);
+    }
 
-        public TableroGUI() {
-            String[][] matriz = new String[FILAS][COLUMNAS];
-            for (int i = 0; i < FILAS; i++)
-                for (int j = 0; j < COLUMNAS; j++)
-                    matriz[i][j] = ".";
+    private JPanel crearGridConEncabezados() {
+        JPanel container = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel grid = new JPanel(new GridLayout(filas + 1, columnas + 1, 0, 0));
+        grid.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        Font headerFont = new Font(Font.SANS_SERIF, Font.BOLD, 14);
+        Font cellFont = new Font(Font.MONOSPACED, Font.BOLD, 20);
 
-            tablero = new Tablero_movible_de_ajedrez(matriz, FILAS, COLUMNAS, ".", null, -1, false);
-            tablero.reiniciarTablero();
-            colocarPiezasIniciales();
-
-            setTitle("Tablero Movible - Interfaz");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLayout(new BorderLayout(6, 6));
-            add(crearGridConEncabezados(), BorderLayout.CENTER);
-            add(crearPanelControl(), BorderLayout.SOUTH);
-
-            pack();
-            setResizable(false);
-            setLocationRelativeTo(null);
-            refrescar();
-            setVisible(true);
+        grid.add(new JLabel());
+        for (int c = 0; c < columnas; c++) {
+            JLabel lbl = new JLabel(String.valueOf((char) ('A' + c)), SwingConstants.CENTER);
+            lbl.setFont(headerFont);
+            lbl.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+            grid.add(lbl);
         }
 
-        private void colocarPiezasIniciales() {
-            String[][] m = tablero.getTablero();
-            tablero.reiniciarTablero();
-            m[0][0] = "T"; m[0][1] = "C"; m[0][2] = "A"; m[0][3] = "D";
-            m[0][4] = "R"; m[0][5] = "A"; m[0][6] = "C"; m[0][7] = "T";
-            for (int c = 0; c < COLUMNAS; c++) m[1][c] = "P";
-            for (int c = 0; c < COLUMNAS; c++) m[6][c] = "p";
-            m[7][0] = "t"; m[7][1] = "c"; m[7][2] = "a"; m[7][3] = "d";
-            m[7][4] = "r"; m[7][5] = "a"; m[7][6] = "c"; m[7][7] = "t";
-        }
+        for (int r = 0; r < filas; r++) {
+            JLabel rowLbl = new JLabel(String.valueOf(filas - r), SwingConstants.CENTER);
+            rowLbl.setFont(headerFont);
+            rowLbl.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+            grid.add(rowLbl);
 
-        private JPanel crearGridConEncabezados() {
-            JPanel container = new JPanel(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            JPanel grid = new JPanel(new GridLayout(FILAS + 1, COLUMNAS + 1, 0, 0));
-            grid.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
-            Font headerFont = new Font(Font.SANS_SERIF, Font.BOLD, 14);
-            Font cellFont = new Font(Font.MONOSPACED, Font.BOLD, 20);
-
-            grid.add(new JLabel());
-            for (int c = 0; c < COLUMNAS; c++) {
-                JLabel lbl = new JLabel(String.valueOf((char) ('A' + c)), SwingConstants.CENTER);
-                lbl.setFont(headerFont);
-                lbl.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
-                grid.add(lbl);
-            }
-
-            for (int r = 0; r < FILAS; r++) {
-                JLabel rowLbl = new JLabel(String.valueOf(FILAS - r), SwingConstants.CENTER);
-                rowLbl.setFont(headerFont);
-                rowLbl.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
-                grid.add(rowLbl);
-
-                for (int c = 0; c < COLUMNAS; c++) {
-                    JButton b = new JButton(matrizText(r, c));
-                    b.setFont(cellFont);
-                    b.setOpaque(true);
-                    b.setBorder(defaultBorder);
-                    b.setFocusPainted(false);
-                    b.setPreferredSize(new Dimension(64, 64));
-                    b.setBackground(((r + c) % 2 == 0) ? lightColor : darkColor);
-                    final int fr = r;
-                    final int fc = c;
-                    b.setToolTipText(coordToLabel(fr, fc));
-                    b.addActionListener(e -> onCeldaClick(fr, fc));
-                    b.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            if (SwingUtilities.isRightMouseButton(e)) {
-                                tablero.soltarPieza();
-                                refrescar();
-                            }
+            for (int c = 0; c < columnas; c++) {
+                JButton b = new JButton(matrizText(r, c));
+                b.setFont(cellFont);
+                b.setOpaque(true);
+                b.setBorder(defaultBorder);
+                b.setFocusPainted(false);
+                b.setPreferredSize(new Dimension(64, 64));
+                b.setBackground(((r + c) % 2 == 0) ? lightColor : darkColor);
+                final int fr = r;
+                final int fc = c;
+                b.setToolTipText(coordToLabel(fr, fc));
+                b.addActionListener(e -> onCeldaClick(fr, fc));
+                b.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            soltarPieza();
+                            refrescar();
                         }
-                    });
-                    botones[r][c] = b;
-                    grid.add(b);
-                }
-            }
-
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            container.add(grid, gbc);
-            return container;
-        }
-
-        private JPanel crearPanelControl() {
-            JPanel control = new JPanel(new BorderLayout(6, 6));
-            JPanel botonesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
-            JButton soltar = new JButton("Soltar (click derecho también)");
-            soltar.addActionListener(e -> {
-                tablero.soltarPieza();
-                refrescar();
-            });
-            JButton reiniciar = new JButton("Reiniciar");
-            reiniciar.addActionListener(e -> {
-                colocarPiezasIniciales();
-                refrescar();
-            });
-            botonesPanel.add(soltar);
-            botonesPanel.add(reiniciar);
-
-            statusLabel.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
-            control.add(botonesPanel, BorderLayout.WEST);
-            control.add(statusLabel, BorderLayout.CENTER);
-            return control;
-        }
-
-        private void onCeldaClick(int fila, int col) {
-            if (!tablero.getPiezaEnmano()) {
-                String valor = tablero.getTablero()[fila][col];
-                if (valor != null && !valor.equals(".") && !valor.trim().isEmpty()) {
-                    tablero.seleccionarPieza(fila, col);
-                    statusLabel.setText("Seleccionada " + tablero.getPiezaSeleccionada() + " en " + coordToLabel(fila, col));
-                } else {
-                    statusLabel.setText("No hay pieza en " + coordToLabel(fila, col));
-                    Toolkit.getDefaultToolkit().beep();
-                }
-            } else {
-                String destino = tablero.getTablero()[fila][col];
-                if (destino != null && destino.equals(".")) {
-                    tablero.moverpieza(fila, col);
-                    statusLabel.setText("Movido a " + coordToLabel(fila, col));
-                } else {
-                    statusLabel.setText("Destino ocupado: " + coordToLabel(fila, col));
-                    Toolkit.getDefaultToolkit().beep();
-                }
-            }
-            refrescar();
-        }
-
-        private void refrescar() {
-            String[][] m = tablero.getTablero();
-            int selF = tablero.getFilaSeleccionada();
-            int selC = tablero.getColumnaSeleccionada();
-            for (int r = 0; r < FILAS; r++) {
-                for (int c = 0; c < COLUMNAS; c++) {
-                    JButton btn = botones[r][c];
-                    String texto = m[r][c];
-                    btn.setText((texto == null || texto.equals(".")) ? "" : texto);
-                    btn.setToolTipText(coordToLabel(r, c) + " - " + (texto == null ? "?" : texto));
-                    btn.setBorder(defaultBorder);
-                    btn.setBackground(((r + c) % 2 == 0) ? lightColor : darkColor);
-                    if (tablero.getPiezaEnmano() && r == selF && c == selC) {
-                        btn.setBorder(selectionBorder);
                     }
+                });
+                botones[r][c] = b;
+                grid.add(b);
+            }
+        }
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        container.add(grid, gbc);
+        return container;
+    }
+
+    private JPanel crearPanelControl() {
+        JPanel control = new JPanel(new BorderLayout(6, 6));
+        JPanel botonesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
+        JButton soltar = new JButton("Soltar (click derecho también)");
+        soltar.addActionListener(e -> {
+            soltarPieza();
+            refrescar();
+        });
+        JButton reiniciar = new JButton("Reiniciar");
+        reiniciar.addActionListener(e -> {
+            inicializarModelo();
+            refrescar();
+        });
+        botonesPanel.add(soltar);
+        botonesPanel.add(reiniciar);
+
+        statusLabel.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        control.add(botonesPanel, BorderLayout.WEST);
+        control.add(statusLabel, BorderLayout.CENTER);
+        return control;
+    }
+
+    private void onCeldaClick(int fila, int col) {
+        if (!piezaEnmano) {
+            String valor = tablero[fila][col];
+            if (valor != null && !valor.equals(piezaVacia) && !valor.trim().isEmpty()) {
+                seleccionarPieza(fila, col);
+                statusLabel.setText("Seleccionada " + piezaSeleccionada + " en " + coordToLabel(fila, col));
+            } else {
+                statusLabel.setText("No hay pieza en " + coordToLabel(fila, col));
+                Toolkit.getDefaultToolkit().beep();
+            }
+        } else {
+            String destino = tablero[fila][col];
+            if (destino != null && destino.equals(piezaVacia)) {
+                moverPieza(fila, col);
+                statusLabel.setText("Movido a " + coordToLabel(fila, col));
+            } else {
+                statusLabel.setText("Destino ocupado: " + coordToLabel(fila, col));
+                Toolkit.getDefaultToolkit().beep();
+            }
+        }
+        refrescar();
+    }
+
+    private void refrescar() {
+        int selF = filaSeleccionada;
+        int selC = columnaSeleccionada;
+        for (int r = 0; r < filas; r++) {
+            for (int c = 0; c < columnas; c++) {
+                JButton btn = botones[r][c];
+                String texto = tablero[r][c];
+                btn.setText((texto == null || texto.equals(piezaVacia)) ? "" : texto);
+                btn.setToolTipText(coordToLabel(r, c) + " - " + (texto == null ? "?" : texto));
+                btn.setBorder(defaultBorder);
+                btn.setBackground(((r + c) % 2 == 0) ? lightColor : darkColor);
+                if (piezaEnmano && r == selF && c == selC) {
+                    btn.setBorder(selectionBorder);
                 }
             }
-            if (tablero.getPiezaEnmano()) {
-                setTitle("Tablero - Pieza en mano: " + tablero.getPiezaSeleccionada());
-            } else {
-                setTitle("Tablero - Sin pieza en mano");
-            }
-            repaint();
         }
+        if (piezaEnmano) {
+            setTitle("Tablero - Pieza en mano: " + piezaSeleccionada);
+        } else {
+            setTitle("Tablero - Sin pieza en mano");
+        }
+        repaint();
+    }
 
-        private String coordToLabel(int fila, int col) {
-            char colLabel = (char) ('A' + col);
-            int rowLabel = FILAS - fila;
-            return "" + colLabel + rowLabel;
-        }
+    private String coordToLabel(int fila, int col) {
+        char colLabel = (char) ('A' + col);
+        int rowLabel = filas - fila;
+        return "" + colLabel + rowLabel;
+    }
 
-        private String matrizText(int r, int c) {
-            String t = tablero.getTablero()[r][c];
-            return (t == null || t.equals(".")) ? "" : t;
-        }
+    private String matrizText(int r, int c) {
+        String t = tablero[r][c];
+        return (t == null || t.equals(piezaVacia)) ? "" : t;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new TableroApp());
     }
 }

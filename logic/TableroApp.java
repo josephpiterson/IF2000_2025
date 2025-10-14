@@ -10,7 +10,13 @@ import javax.swing.border.LineBorder;
  * Aplicación que combina modelo y GUI en un solo archivo para facilidad de ejecución.
  */
 public class TableroApp {
-    // Método main eliminado. Iniciar la GUI desde otro punto de entrada si es necesario.
+    // Constructor que inicia la GUI al instanciar la clase.
+    public TableroApp() {
+        // Lanzar la interfaz gráfica en el hilo de eventos Swing
+        SwingUtilities.invokeLater(() -> {
+            new TableroGUI();
+        });
+    }
 
     /**
      * Modelo del tablero movible

@@ -1,4 +1,4 @@
-package IF2000_2025.Proyecto_damaschinas;
+package Proyecto_damaschinas;
 
 public class Celda {
     //Atributos
@@ -37,16 +37,16 @@ public class Celda {
     }
     @Override
     public String toString(){
-        if(estaVacia()){
-            // Representar celda vacía
-            return"[]";
+        if (estaVacia()) {
+            // Representar celda vacía con un punto
+            return ".";
         }
-        String color=ficha.getColor();
-        if(color==null)return"?";
-        if(color.equalsIgnoreCase("RED")) return"R";
-        if(color.equalsIgnoreCase("BLACK")) return"B";
+        String color = ficha.getColor();
+        if (color == null) return "?";
+        if (color.equalsIgnoreCase("RED")) return "R";
+        if (color.equalsIgnoreCase("BLACK")) return "N"; // 'N' para negra (español)
 
-        return String.valueOf(Character.toUpperCase(color.charAt((0))));
+        return String.valueOf(Character.toUpperCase(color.charAt(0)));
     }
 
 

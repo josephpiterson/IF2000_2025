@@ -1,4 +1,4 @@
-package IF2000_2025.Proyecto_damaschinas;
+package Proyecto_damaschinas;
 
 public class Ficha {
     //Atributos

@@ -1,4 +1,4 @@
-package IF2000_2025.Proyecto_damaschinas;
+package Proyecto_damaschinas;
 
 import java.util.Scanner;
 
@@ -32,7 +32,8 @@ public class Juego {
 
     }
     public void iniciar(){
-        System.err.println("========DAMAS CHINAS========");
+    System.out.println("======Damas Chinas======");
+    System.out.println();
         try(Scanner sc=new Scanner(System.in)){
            while (true) {
                  tablero.imprimirTablero();

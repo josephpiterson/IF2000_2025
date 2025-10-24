@@ -1,4 +1,4 @@
-package logic;
+ package logic;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -78,6 +78,11 @@ public class TableroApp extends JFrame {
         if (!validarIndices(fila, columna)) return false;
         if (!piezaEnmano) return false;
         if (!tablero[fila][columna].equals(piezaVacia)) return false;
+        // Permitir solo movimiento diagonal (misma distancia en filas y columnas)
+        int df = Math.abs(fila - filaSeleccionada);
+        int dc = Math.abs(columna - columnaSeleccionada);
+        if (df == 0 || dc == 0 || df != dc) return false;
+
         tablero[fila][columna] = piezaSeleccionada;
         piezaSeleccionada = null;
         piezaEnmano = false;
@@ -149,7 +154,7 @@ public class TableroApp extends JFrame {
             grid.add(rowLbl);
 
             for (int c = 0; c < columnas; c++) {
-                JButton b = new JButton(matrizText(r, c));
+                JButton b = new JButton();
                 b.setFont(cellFont);
                 b.setOpaque(true);
                 b.setBorder(defaultBorder);
@@ -232,7 +237,8 @@ public class TableroApp extends JFrame {
             for (int c = 0; c < columnas; c++) {
                 JButton btn = botones[r][c];
                 String texto = tablero[r][c];
-                btn.setText((texto == null || texto.equals(piezaVacia)) ? "" : texto);
+                // Usar icono circular para las fichas
+                btn.setIcon(matrizIcon(r, c));
                 btn.setToolTipText(coordToLabel(r, c) + " - " + (texto == null ? "?" : texto));
                 btn.setBorder(defaultBorder);
                 btn.setBackground(((r + c) % 2 == 0) ? lightColor : darkColor);
@@ -258,6 +264,61 @@ public class TableroApp extends JFrame {
     private String matrizText(int r, int c) {
         String t = tablero[r][c];
         return (t == null || t.equals(piezaVacia)) ? "" : t;
+    }
+
+    // Devuelve un Icon que pinta una ficha circular según el texto de la celda
+    private Icon matrizIcon(int r, int c) {
+        String t = tablero[r][c];
+        if (t == null || t.equals(piezaVacia) || t.trim().isEmpty()) return null;
+        // Determinar color: mayúscula -> roja, minúscula -> negra
+        boolean upper = Character.isUpperCase(t.charAt(0));
+        Color fill = upper ? new Color(200, 40, 40) : Color.BLACK;
+        Color border = upper ? fill.darker() : Color.DARK_GRAY;
+        return new PieceIcon(fill, border, 40);
+    }
+
+    // Icon personalizado para pintar una ficha circular con letra
+    private static class PieceIcon implements Icon {
+        private final Color fill;
+        private final Color border;
+        private final int size;
+
+        PieceIcon(Color fill, Color border, int size) {
+            this.fill = fill;
+            this.border = border;
+            this.size = size;
+        }
+
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            try {
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                // Centrar el círculo en toda la superficie del componente (botón)
+                int cx = (c.getWidth() - size) / 2;
+                int cy = (c.getHeight() - size) / 2;
+                // fondo circular
+                g2.setColor(fill);
+                g2.fillOval(cx, cy, size, size);
+                // borde
+                g2.setColor(border);
+                g2.setStroke(new BasicStroke(2f));
+                g2.drawOval(cx, cy, size, size);
+                // No dibujar letra: ficha solo circular, centrada por el icono
+            } finally {
+                g2.dispose();
+            }
+        }
+
+        @Override
+        public int getIconWidth() {
+            return size;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return size;
+        }
     }
 
     public static void main(String[] args) {

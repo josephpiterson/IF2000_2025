@@ -1,8 +1,5 @@
 package IF2000_introduccionprogra;
 
-import javax.swing.SwingUtilities;
-import logic.TableroApp;
-
 public class IF2000_introduccionprogra
 {
     public static void main(String[] args)
@@ -90,10 +87,6 @@ public class IF2000_introduccionprogra
     //Lab3.ejercicio_13();
     //Lab3.ejercicio_14();
 
-        // Iniciar la interfaz del tablero (TableroGUI) que ahora está en TableroApp
-        SwingUtilities.invokeLater(() -> {
-            // Crear una instancia de TableroApp para iniciar la GUI
-            new TableroApp();
-        });
+    
     }
 }

@@ -52,47 +52,56 @@ public class Juego {
                 break;
             }
 
-            //procesar movimiento
-            String[] parts =line.split("\\s+");
-            int fO,cO,fD,cD;
-            try{
-                if(parts.length==2){
-                    // Formato con letras y números
-                     fO=Integer.parseInt(parts[0]);
-                     cO=Integer.parseInt(parts[1]);
-                    fD=Integer.parseInt(parts[2]);
-                    cD=Integer.parseInt(parts[3]);
-                }else if(parts.length==2){
-                    int[] src=parseCoord(parts[0]);
-                    int[] dst=parseCoord(parts[1]);
-                    if(src==null||dst==null){
+            // procesar movimiento
+            String[] parts = line.split("\\s+");
+            int fO, cO, fD, cD;
+            try {
+                if (parts.length == 4) {
+                    // Formato numérico: 5 0 4 1
+                    fO = Integer.parseInt(parts[0]);
+                    cO = Integer.parseInt(parts[1]);
+                    fD = Integer.parseInt(parts[2]);
+                    cD = Integer.parseInt(parts[3]);
+                } else if (parts.length == 2) {
+                    // Formato alfanumérico: F0 E1
+                    int[] src = parseCoord(parts[0]);
+                    int[] dst = parseCoord(parts[1]);
+                    if (src == null || dst == null) {
                         System.err.println("Formato de coordenadas inválido. Usa F0 E1 o 5 0 4 1.");
                         continue;
                     }
-                    fO=src[0]; cO=src[1]; fD=dst[0]; cD=dst[1];
-
-                }else{
+                    fO = src[0];
+                    cO = src[1];
+                    fD = dst[0];
+                    cD = dst[1];
+                } else {
                     System.out.println("Entrada no reconocida. Usa 'F0 E1' o '5 0 4 1'.");
                     continue;
                 }
-            
-           }catch(NumberFormatException e){
-            System.err.println("Numero inválidos.");
-            continue;
-           }
-           Celda origen = tablero.getCelda(fO, cO);
-           Celda destino = tablero.getCelda(fD, cD);
-           if(origen==null || destino==null){
-            System.err.println("No hay ficha en la celda de origen");
-            continue;
-           }
-           if(!origen.getFicha().getColor().equalsIgnoreCase(turnoactual)){
-            System.err.println("Esa ficha no te pertenece.");
-            continue;
-           }if(destino==null){
-            System.err.println("Destino fuera del tablero.");
-            continue;
-           }
+
+            } catch (NumberFormatException e) {
+                System.err.println("Numeros inválidos.");
+                continue;
+            }
+
+            Celda origen = tablero.getCelda(fO, cO);
+            Celda destino = tablero.getCelda(fD, cD);
+            if (origen == null) {
+                System.err.println("Origen fuera del tablero.");
+                continue;
+            }
+            if (origen.getFicha() == null) {
+                System.err.println("No hay ficha en la celda de origen");
+                continue;
+            }
+            if (!origen.getFicha().getColor().equalsIgnoreCase(turnoactual)) {
+                System.err.println("Esa ficha no te pertenece.");
+                continue;
+            }
+            if (destino == null) {
+                System.err.println("Destino fuera del tablero.");
+                continue;
+            }
            if(!destino.estaVacia()){
             System.err.println("La celda de destino no está vacía.");
             continue;
@@ -129,19 +138,24 @@ public class Juego {
         }
         return null;
     }
-    private boolean esMOvimientoValido(Celda origen,int fD, int cD){
-        Ficha f=origen.getFicha();
-        if(f==null)return false;
-        int fO= origen.getFila();
-        int cO= origen.getColumna();
-        int df=Math.abs(cD-cO);
-        int dc=Math.abs(cD-cO);
-        String color=f.getColor();
-        if(color.equalsIgnoreCase("RED")){
-            return df==-1;
-
-        }else if(color.equalsIgnoreCase("BLACK")){
-            return df==1;
+    private boolean esMOvimientoValido(Celda origen, int fD, int cD) {
+        Ficha f = origen.getFicha();
+        if (f == null) return false;
+        int fO = origen.getFila();
+        int cO = origen.getColumna();
+        int df = Math.abs(fD - fO);
+        int dc = Math.abs(cD - cO);
+        String color = f.getColor();
+        // Movimiento diagonal simple de una casilla
+        if (df == 1 && dc == 1) {
+            // respetar dirección según el color
+            if (color.equalsIgnoreCase("RED")) {
+                // RED está abajo: se mueve hacia filas menores (hacia arriba)
+                return fD == fO - 1;
+            } else if (color.equalsIgnoreCase("BLACK")) {
+                // BLACK está arriba: se mueve hacia filas mayores (hacia abajo)
+                return fD == fO + 1;
+            }
         }
         return false;
 

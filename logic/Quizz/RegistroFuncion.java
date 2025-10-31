@@ -43,7 +43,7 @@ public class RegistroFuncion {
             }
             private void registrarPersona(Scanner scanner){
                 String nombre=leerNoVacio(scanner,"Nombre:");
-                String id=leerNoVacio(scanner,"");
+                String id=leerNoVacio(scanner,"ID");
                 int edad = leerEnteroPositivo(scanner, "Edad: ");
                 String correo=leerEmailValido(scanner,"Correo:");
                 String telefono=leerTelefonoValido(scanner,"Telefono:");

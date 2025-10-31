@@ -1,9 +1,10 @@
-package logic.Quizz30-10-25;
+package logic.Quizz;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 
 public class RegistroFuncion {
     private static final String ARCHIVO="personas.txt";
@@ -14,7 +15,8 @@ public class RegistroFuncion {
         while (true) { 
             System.out.println("\n======REGISTRO DE PERSONAS=====");
             System.out.println("1. Registrar persona");
-            System.out.println("Opcion:");
+            System.out.println("2. Salir");
+            System.out.print("Opcion:");
 
             int opcion;
             try {
@@ -42,7 +44,7 @@ public class RegistroFuncion {
             private void registrarPersona(Scanner scanner){
                 String nombre=leerNoVacio(scanner,"Nombre:");
                 String id=leerNoVacio(scanner,"");
-                int edad=leerEnteroPositivo(scanner,"Edad:");
+                int edad = leerEnteroPositivo(scanner, "Edad: ");
                 String correo=leerEmailValido(scanner,"Correo:");
                 String telefono=leerTelefonoValido(scanner,"Telefono:");
 
@@ -69,7 +71,7 @@ public class RegistroFuncion {
                 return s;
 
             }
-            private String leerEnteroPositivo(Scanner sc, String prompt){
+            private int leerEnteroPositivo(Scanner sc, String prompt){
                 int val=-1;
                 do {
                     System.out.print(prompt);
@@ -85,6 +87,40 @@ public class RegistroFuncion {
                 }while(val<=0);
                 return val;
             }
+            private String leerEmailValido(Scanner sc, String prompt) {
+        String email;
+        do {
+            System.out.print(prompt);
+            email = sc.nextLine().trim();
+            if (email.isEmpty() || !email.contains("@")) {
+                System.out.println("Correo inválido. Debe contener '@'. Intente de nuevo.");
+                email = "";
+            }
+        } while (email.isEmpty());
+        return email;
+    }
+
+    private String leerTelefonoValido(Scanner sc, String prompt) {
+        String tel;
+        do {
+            System.out.print(prompt);
+            tel = sc.nextLine().trim();
+            if (!tel.matches("\\d{8,}")) {
+                System.out.println("Teléfono inválido. Solo dígitos y al menos 8 caracteres. Intente de nuevo.");
+                tel = "";
+            }
+        } while (tel.isEmpty());
+        return tel;
+    }
+
+    // --- Merged file writer from RegistroArchivo ---
+    private void guardarLinea(String linea) throws IOException {
+        try (FileWriter fw = new FileWriter(ARCHIVO, true);
+             BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(linea);
+            bw.newLine();
+        }
+    }
 
         }
     

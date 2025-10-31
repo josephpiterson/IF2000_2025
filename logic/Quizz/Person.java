@@ -1,4 +1,4 @@
-package logic.Quizz30-10-25;
+package logic.Quizz;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,17 +38,24 @@ public class Person {
     public String getFechaRegistro(){
         return fechaRegistro.format(FORMATO);
     }
+    public String toLine() {
+        return String.join("|",
+                nombre,
+                id,
+                String.valueOf(edad),
+                correo,
+                telefono,
+                fechaRegistro.format(FORMATO)
+        );
+    }
+
 
     @Override
     public String toString() {
-        return "Person{" +
-                "nombre='" + nombre + '\'' +
-                ", id='" + id + '\'' +
-                ", edad=" + edad +
-                ", correo='" + correo + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", fechaRegistro=" + fechaRegistro.format(FORMATO) +
-                '}';
+        return String.format(
+            "Nombre: %s, ID: %s, Edad: %d, Correo: %s, Teléfono: %s, Registro: %s",
+            nombre, id, edad, correo, telefono, fechaRegistro.format(FORMATO)
+        );
     }
 
 

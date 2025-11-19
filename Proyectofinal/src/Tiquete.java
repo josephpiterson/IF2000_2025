@@ -1,4 +1,4 @@
-package proyectofinal;
+package proyectofinal.model;
 
 public class Tiquete {
     private Vuelo vuelo;

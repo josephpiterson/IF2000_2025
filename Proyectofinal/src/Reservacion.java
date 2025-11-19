@@ -1,4 +1,4 @@
-package proyectofinal;
+package proyectofinal.model;
 
 public class Reservacion {
     public static class Resultado {

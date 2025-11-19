@@ -1,4 +1,4 @@
-package proyectofinal.GUI;
+package proyectofinal.gui;
 
 import proyectofinal.Avion;
 import proyectofinal.Pasajero;

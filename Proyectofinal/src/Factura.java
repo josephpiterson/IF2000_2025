@@ -1,4 +1,4 @@
-package Proyectofinal;
+package proyectofinal;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

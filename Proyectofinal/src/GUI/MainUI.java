@@ -1,6 +1,6 @@
-package Proyectofinal.GUI;
+package proyectofinal.GUI;
 
-import Proyectofinal.*;
+import proyectofinal.*; 
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;

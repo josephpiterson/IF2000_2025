@@ -1,4 +1,4 @@
-package Proyectofinal;
+package proyectofinal;
 
 import java.util.HashMap;
 import java.util.HashSet;

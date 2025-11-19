@@ -1,4 +1,4 @@
-package Proyectofinal;
+package proyectofinal;
 
 // Clase Pasajero simplificada para principiantes.
 public class Pasajero {

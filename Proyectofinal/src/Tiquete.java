@@ -1,4 +1,4 @@
-package proyectofinal.src;
+package proyectofinal;
 
 public class Tiquete {
     private Vuelo vuelo;

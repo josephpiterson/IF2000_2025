@@ -1,4 +1,4 @@
-package proyectofinal.src;
+package proyectofinal;
 
 import java.util.ArrayList;
 import java.util.List;

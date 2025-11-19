@@ -1,6 +1,9 @@
 package proyectofinal.GUI;
 
-import proyectofinal.*; 
+import proyectofinal.Avion;
+import proyectofinal.Pasajero;
+import proyectofinal.Reservacion;
+import proyectofinal.Vuelo;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;

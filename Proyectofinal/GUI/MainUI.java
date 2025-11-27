@@ -1,9 +1,5 @@
-package proyectofinal;
+package proyectofinal.gui;
 
-import proyectofinal.Avion;
-import proyectofinal.Pasajero;
-import proyectofinal.Reservacion;
-import proyectofinal.Vuelo;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,6 +12,10 @@ import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import proyectofinal.model.Avion;
+import proyectofinal.model.Pasajero;
+import proyectofinal.model.Reservacion;
+import proyectofinal.model.Vuelo;
 
 // Interfaz gráfica más completa basada en la imagen proporcionada.
 public class MainUI extends JFrame {
@@ -193,10 +193,10 @@ public class MainUI extends JFrame {
         }
 
         // Mostrar sólo el destino seleccionado. Si no requiere visa, indicar "No ocupa visa".
-        if (com.reservations.Vuelo.noVisaFor(destino)) {
+        if (Vuelo.noVisaFor(destino)) {
             model.addElement(destino + " (No ocupa visa)");
-        } else if (com.reservations.Vuelo.requiresVisaFor(destino)) {
-            String tipo = com.reservations.Vuelo.getTipoVisaFor(destino);
+        } else if (Vuelo.requiresVisaFor(destino)) {
+            String tipo = Vuelo.getTipoVisaFor(destino);
             if (tipo != null) model.addElement(destino + " (Requiere visa: " + tipo + ")");
             else model.addElement(destino + " (Requiere visa)");
         } else {
